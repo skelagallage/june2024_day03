@@ -12,6 +12,7 @@ public class LibraryTest {
     private Book book2;
     private Member member1;
     private Member member2;
+    private long timeoutStart;
 
     @DataProvider(name = "bookProvider")
     public Object[][] bookProvider(){
@@ -25,10 +26,6 @@ public class LibraryTest {
     @BeforeClass
     public void setupLibrary(){
         library = new Library();
-    }
-
-    @BeforeMethod
-    public void setupBooksAndMembers(){
         book1 = new Book("Book1", "Author1");
         book2 = new Book("Book2", "Author2");
         member1 = new Member("Member1");
@@ -39,14 +36,21 @@ public class LibraryTest {
         library.registerMember(member2);
     }
 
+    @BeforeMethod
+    public void setupBooksAndMembers(){
+
+
+    }
+
     @AfterMethod
     public void clearBooksAndMembers(){
-        library.getBooks().clear();
-        library.getMembers().clear();
+
     }
 
     @AfterClass
     public void makeLibraryNull(){
+        library.getBooks().clear();
+        library.getMembers().clear();
         library = null;
     }
 
@@ -61,6 +65,47 @@ public class LibraryTest {
     public void testRemoveBook(){
         library.removeBook(book1);
         Assert.assertFalse(library.getBooks().contains(book1));
+    }
+
+    @Test(groups = "lendReturn", dependsOnGroups = "addRemoveBook")
+    public void testLendBook(){
+        boolean lendBookStatus = library.lendBook(book2, member2);
+        Assert.assertTrue(lendBookStatus);
+        Assert.assertTrue(library.getBooks().get(0).isLent());
+    }
+
+    @Test(groups = "lendReturn", dependsOnMethods = "testLendBook")
+    public void testReturnBook(){
+        boolean lendBookStatus = library.returnBook(book2, member2);
+        Assert.assertTrue(lendBookStatus);
+        Assert.assertFalse(library.getBooks().get(0).isLent());
+    }
+
+    @Test(dependsOnMethods = "testReturnBook", dataProvider = "bookProvider")
+    public void testAddBookWithDataProvider(Book book){
+        library.addBook(book);
+        Assert.assertTrue(library.getBooks().contains(book));
+    }
+
+    @Test(enabled = false)
+    public void disabledTest(){
+        System.out.println("This is disabled test");
+    }
+
+    @Test
+    public void timeoutStart(){
+        timeoutStart = System.currentTimeMillis();
+    }
+
+    @Test(dependsOnMethods = "timeoutStart", timeOut = 3000)
+    public void testTimeout(){
+        Assert.assertTrue(System.currentTimeMillis()>
+                timeoutStart);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testExpectedException(){
+        library.getBooks().get(10);
     }
 }
 

@@ -1,0 +1,40 @@
+**ebay.com - July 13, 2024**
+--Basic xpath
+//h2[@class='vl-card-header__headline']
+
+**facebook.com**
+-> Sign up
+--and
+//input[@type='text' and @placeholder='First name']
+
+**ebay.com
+--text()
+//h2[text()='Explore Popular Categories']
+
+--parent/child
+//ul[@class='vl-flyout-nav__container']/li/a
+
+--parent/---/---/---/---/a = parent//a
+//ul[@class='vl-flyout-nav__container']//a[text()='Saved']
+
+--wildcard(*)
+//*[*]
+
+--parent using ..
+//a[text()='Saved']/../..
+
+--contains
+//a[contains(text(), 'eBay Money')]
+//a[contains(@href, 'https://pages.ebay.com/ebay')]
+
+--parent::*
+//a[text()='Saved']/parent::*/parent::ul
+
+--ancestor::*
+//a[text()='Saved']/ancestor::ul
+
+--preceding-sibling::*
+//a[text()=' Daily Deals']/parent::li/preceding-sibling::*
+
+--preceding
+//a[text()=' Daily Deals']/parent::li/preceding::*
