@@ -4,20 +4,23 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 public class TestNGUtil {
 
-    protected WebDriver driver;
+//    protected WebDriver driver;
 
     @BeforeTest
-    public void initBrowser(){
-        driver = WebDriverManager.chromedriver().create();
-        driver.manage().window().maximize();
-
+    @Parameters("browser")
+    public void initBrowser(@Optional("chrome") String browser){
+        System.setProperty("browser", browser);
+//        driver = WebDriverManager.chromedriver().create();
+        BrowserFactory.getBrowserFactory().getDriver().manage().window().maximize();
     }
 
     @AfterTest
     public void quitBrowser(){
-        driver.quit();
+        BrowserFactory.getBrowserFactory().getDriver().quit();
     }
 }

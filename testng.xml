@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test parallel="methods" thread-count="2" verbose="2" preserve-order="true" name="C:/UCSC/june2024_day03">
+        <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="pageobjectmodel.tests.Ebay">
                 <methods>

@@ -10,13 +10,14 @@ import pageobjectmodel.pages.PageBase;
 import pageobjectmodel.pages.PageClothResults;
 import pageobjectmodel.pages.PageEbayHome;
 import pageobjectmodel.pages.PageMobileResults;
+import pageobjectmodel.utils.BrowserFactory;
 import pageobjectmodel.utils.TestNGUtil;
 
 public class Ebay extends TestNGUtil {
 
     @Test
     public void searchMobile() throws InterruptedException {
-        PageBase pageBase = PageFactory.initElements(driver, PageBase.class);
+        PageBase pageBase = PageFactory.initElements(BrowserFactory.getBrowserFactory().getDriver(), PageBase.class);
         PageEbayHome pageEbayHome = pageBase.initApp("https://www.ebay.com/");
         pageEbayHome.typeOnSearchField("mobile phone");
         pageEbayHome.selectCategory("Cell Phones & Accessories");
@@ -28,7 +29,7 @@ public class Ebay extends TestNGUtil {
 
     @Test
     public void searchTShirt() throws InterruptedException {
-        PageBase pageBase = PageFactory.initElements(driver, PageBase.class);
+        PageBase pageBase = PageFactory.initElements(BrowserFactory.getBrowserFactory().getDriver(), PageBase.class);
         PageEbayHome pageEbayHome = pageBase.initApp("https://www.ebay.com/");
         pageEbayHome.typeOnSearchField("T Shirt");
         pageEbayHome.selectCategory("Clothing, Shoes & Accessories");
