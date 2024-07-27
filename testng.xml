@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test parallel="methods" thread-count="2" verbose="2" preserve-order="true" name="C:/UCSC/june2024_day03">
+        <classes>
+            <class name="pageobjectmodel.tests.Ebay">
+                <methods>
+                    <include name="searchMobile"/>
+                    <include name="searchTShirt"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

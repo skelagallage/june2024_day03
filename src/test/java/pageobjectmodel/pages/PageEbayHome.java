@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PageEbayHome extends PageBase{
 
     @FindBy(xpath = "//input[@id='gh-ac']")
@@ -18,6 +21,17 @@ public class PageEbayHome extends PageBase{
     @FindBy(xpath = "//input[@id='gh-btn']")
     private WebElement searchButton;
 
+    private String selectionCategory;
+
+    private Map<String, Object> resultMap = new HashMap<>();
+
+    {
+        resultMap.put("Cell Phones & Accessories",
+                PageFactory.initElements(driver, PageMobileResults.class));
+        resultMap.put("Clothing, Shoes & Accessories",
+                PageFactory.initElements(driver, PageClothResults.class));
+    }
+
     public PageEbayHome(WebDriver driver) {
         super(driver);
     }
@@ -27,13 +41,15 @@ public class PageEbayHome extends PageBase{
     }
 
     public void selectCategory(String visibleText){
+        selectionCategory = visibleText;
         new Select(categorySelector)
                 .selectByVisibleText(visibleText);
     }
 
-    public PageMobileResults clickOnSearchButton(){
+    public <T> T clickOnSearchButton(){
         searchButton.click();
-        return PageFactory.initElements(driver, PageMobileResults.class);
+//        return PageFactory.initElements(driver, PageMobileResults.class);
+        return (T) resultMap.get(selectionCategory);
     }
 
 }

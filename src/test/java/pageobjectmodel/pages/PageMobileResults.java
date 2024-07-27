@@ -22,7 +22,7 @@ public class PageMobileResults extends PageBase{
         appleCheckBox.click();
     }
 
-    public void scroll(int x, int y){
-        new Actions(driver).scrollByAmount(x, y).perform();
-    }
+//    public void scroll(int x, int y){
+//        new Actions(driver).scrollByAmount(x, y).perform();
+//    }
 }
