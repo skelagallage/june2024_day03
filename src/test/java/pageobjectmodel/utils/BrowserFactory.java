@@ -24,6 +24,7 @@ public class BrowserFactory {
             default:
                 throw new RuntimeException("Browser is not defined");
         }
+        driver.manage().window().maximize();
         return driver;
     });
 
